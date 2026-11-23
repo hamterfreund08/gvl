@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Player Management Intent Use Cases</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.6; max-width: 960px; margin: 0 auto; padding: 32px 16px; color: #1f2328; background: #ffffff; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.4rem; margin-top: 3rem; }
+  h3 { font-size: 1.1rem; margin-top: 2rem; }
+  img { max-width: 100%; height: auto; border: 1px solid #d0d7de; border-radius: 6px; display: block; margin: 8px 0; }
+  .note { color: #59636e; font-size: 0.95rem; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #e6edf3; background: #0d1117; }
+    img { border-color: #30363d; }
+    .note { color: #9198a1; }
+    a { color: #58a6ff; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Player Management: Privileged Intent Use Cases</h1>
+<p>Screenshots of the features of the Player Management bot (German Virtual League) that use privileged intents. Names, IDs and profile pictures of users are blacked out.</p>
+<p class="note">See also the <a href="playermanagement-privacy.html">Privacy Policy</a> and the <a href="playermanagement-terms.html">Terms of Service</a>.</p>
+
+<h2 id="server-members">Server Members Intent</h2>
+<p>Team and rank roles on our league server are driven by the league database. The bot regularly goes through the members of the server, gives every registered player and team staff member the correct team and rank roles, and removes them from anyone who is no longer registered or has left a team.</p>
+
+<h3>1. Automatic role sync</h3>
+<p>Audit log entry: the scheduled player sync gives a registered player the "Academy Player" role and removes the "Free Agent" role.</p>
+<img src="screenshots/pm-scheduled-sync.png" alt="Audit log: scheduled player sync adds Academy Player and removes Free Agent">
+
+<h3>2. Roles match the database</h3>
+<p>A registered player has the "Player" role and the team role "FC Schalke 04" on the server.</p>
+<img src="screenshots/pm-member-roles.png" alt="Member profile with Player and FC Schalke 04 roles">
+<p>The same player in the league database, shown with /player: registered for FC Schalke 04.</p>
+<img src="screenshots/pm-player-command.png" alt="/player output showing team FC Schalke 04">
+
+<h3>3. Manual sync</h3>
+<p>League staff can also run the full sync manually with /sync_roles.</p>
+<img src="screenshots/pm-sync-roles.png" alt="/sync_roles response">
+
+<h2 id="message-content">Message Content Intent</h2>
+<p>Message content is only read in the release channels and in the transfer and contract extension forums. Club representatives post a request using a fixed template; the bot reads it, checks it against the league database and turns it into a request card that the League Board accepts or denies.</p>
+
+<h3>1. Transfer forum</h3>
+<p>A club representative creates a transfer post using the template (player, contract length, team joining, team leaving, type of deal, price).</p>
+<img src="screenshots/pm-transfer-post.png" alt="Transfer forum post using the template">
+<p>The bot reads the post and creates the transfer request, including the confirmation by the other club and the League Board decision.</p>
+<img src="screenshots/pm-transfer-card.png" alt="Transfer request created by the bot">
+
+<h3>2. Contract extension forum</h3>
+<p>A contract extension post using the template (player, extend by, proof, reason) and the contract extension request the bot creates from it, with the current and new contract and Accept/Deny buttons.</p>
+<img src="screenshots/pm-contract-extension.png" alt="Contract extension post and request created by the bot">
+
+<h3>3. Release channel</h3>
+<p>A club representative posts the player in the release channel. The bot reads the message, deletes it and posts a release request with the player's team, contract and Accept/Deny buttons.</p>
+<img src="screenshots/pm-release-requests.png" alt="Release requests created by the bot">
+
+</body>
+</html>
